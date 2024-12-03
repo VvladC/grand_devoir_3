@@ -24,6 +24,10 @@ public class Player extends Character {
         this.resources.put("grain", grain);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void damage(Character enemy) {
         enemy.health -= this.attack / enemy.defense ;
         if (enemy.health <= 0) {

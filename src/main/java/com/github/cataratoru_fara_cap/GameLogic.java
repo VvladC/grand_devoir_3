@@ -38,6 +38,10 @@ public class GameLogic {
     private int playerY = 0;
     private int numEnemies;
 
+    public GameLogic(String playerName) {
+        this.player = new Player(playerName, 20, 10, 100, 0, 0);
+    }
+
     public void initializeGame() {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -51,7 +55,6 @@ public class GameLogic {
         }
 
         map = new char[MAP_SIZE][MAP_SIZE];
-        player = new Player("Hero", 20, 10, 100, 0, 0, 0);
         for (int i = 0; i < MAP_SIZE; i++) {
             for (int j = 0; j < MAP_SIZE; j++) {
                 map[i][j] = EMPTY;
@@ -60,6 +63,7 @@ public class GameLogic {
         map[playerX][playerY] = PLAYER;
         placeObjects();
         clearLogFile();
+        System.out.println("Welcome, " + player.getName() + "!");
     }
     // log methods
     private void clearLogFile() {

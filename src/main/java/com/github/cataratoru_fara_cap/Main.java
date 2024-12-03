@@ -4,20 +4,23 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        GameLogic game = new GameLogic();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the player's name: ");
+        String playerName = scanner.nextLine();
+
+        GameLogic game = new GameLogic(playerName);
         game.initializeGame();
-        try (Scanner scanner = new Scanner(System.in)) {
+
+        try (scanner) {
             while (true) {
                 game.printMap();
                 System.out.println("Do you want to craft something?(Yes/no): ");
                 String ans = scanner.nextLine();
                 game.craft(ans);
-
                 System.out.println("Enter move (WASD): ");
                 char move = scanner.next().charAt(0);
                 scanner.nextLine(); // consume the newline
                 game.movePlayer(move);
-
                 if (game.isGameWon()) {
                     System.out.println("YOU WIN");
                     System.exit(0);
@@ -26,4 +29,3 @@ public class Main {
         }
     }
 }
-
