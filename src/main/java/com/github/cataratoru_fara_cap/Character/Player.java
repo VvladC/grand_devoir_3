@@ -1,4 +1,5 @@
 package com.github.cataratoru_fara_cap.Character;
+
 import java.util.HashMap;
 
 import com.github.cataratoru_fara_cap.Building;
@@ -11,7 +12,7 @@ public class Player extends Character {
     public HashMap<String, Double> resources;
 
     public Player(String name, double attack, double defense, double health,
-                 double wood, double rock, double grain) {
+            double wood, double rock, double grain) {
         this.name = name;
         this.isAlive = true;
         this.attack = attack;
@@ -29,7 +30,7 @@ public class Player extends Character {
     }
 
     public void damage(Character enemy) {
-        enemy.health -= this.attack / enemy.defense ;
+        enemy.health -= this.attack / enemy.defense;
         if (enemy.health <= 0) {
             enemy.die();
         }
@@ -46,7 +47,7 @@ public class Player extends Character {
         this.isAlive = false;
     }
 
-    public void eatItem(String itemName) { //Our Character is very hungry and eats a lot
+    public void eatItem(String itemName) { // Our Character is very hungry and eats a lot
         Item item = this.Items.get(itemName);
         if (item != null) {
             item.use(this);
@@ -160,7 +161,8 @@ public class Player extends Character {
     }
 
     public String toString() {
-        return "Player: " + this.name + " Health: " + this.health + " Attack: " + this.attack + " Defense: " + this.defense +
-               " Resources: " + this.resources.toString();
+        return "Player: " + this.name + " Health: " + this.health + " Attack: " + this.attack + " Defense: "
+                + this.defense +
+                " Resources: " + this.resources.toString();
     }
 }

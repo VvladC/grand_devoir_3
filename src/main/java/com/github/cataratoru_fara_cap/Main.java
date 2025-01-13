@@ -1,31 +1,9 @@
 package com.github.cataratoru_fara_cap;
 
-import java.util.Scanner;
+import javafx.application.Application;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the player's name: ");
-        String playerName = scanner.nextLine();
-
-        GameLogic game = new GameLogic(playerName);
-        game.initializeGame();
-
-        try (scanner) {
-            while (true) {
-                game.printMap();
-                System.out.println("Do you want to craft something?(Yes/no): ");
-                String ans = scanner.nextLine();
-                game.craft(ans);
-                System.out.println("Enter move (WASD): ");
-                char move = scanner.next().charAt(0);
-                scanner.nextLine(); // consume the newline
-                game.movePlayer(move);
-                if (game.isGameWon()) {
-                    System.out.println("YOU WIN");
-                    System.exit(0);
-                }
-            }
-        }
+        Application.launch(MainMenu.class, args);
     }
 }

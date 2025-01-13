@@ -6,8 +6,8 @@ import java.util.Scanner;
 import com.github.cataratoru_fara_cap.Rarity;
 import com.github.cataratoru_fara_cap.Item.*;
 
-public class Enemy extends Character {
-    public Enemy(String name, double attack, double defense, double health) {
+public class Boss extends Character {
+    public Boss(String name, double attack, double defense, double health) {
         this.name = name;
         this.isAlive = true;
         this.attack = attack;
@@ -16,16 +16,16 @@ public class Enemy extends Character {
         this.Items = new HashMap<String, Item>();
 
         if (Math.random() < 0.3) {
-            Item sword = new Sword("CoolSword", Rarity.getRandom());
-            this.Items.put("CoolSword", sword);
+            Item sword = new Sword("BossSword", Rarity.getRandom());
+            this.Items.put("BossSword", sword);
         }
         if (Math.random() < 0.3) {
-            Item shield = new Shield("CoolShield", Rarity.getRandom());
-            this.Items.put("CoolShield", shield);
+            Item shield = new Shield("BossShield", Rarity.getRandom());
+            this.Items.put("BossShield", shield);
         }
         if (Math.random() < 0.3) {
-            Item food = new Food("CoolFood", Rarity.getRandom());
-            this.Items.put("CoolFood", food);
+            Item food = new Food("BossFood", Rarity.getRandom());
+            this.Items.put("BossFood", food);
         }
     }
 
@@ -74,7 +74,7 @@ public class Enemy extends Character {
     }
 
     public String toString() {
-        return "Enemy: " + this.name + " Health: " + this.health + " Attack: " + this.attack + " Defense: "
+        return "Boss: " + this.name + " Health: " + this.health + " Attack: " + this.attack + " Defense: "
                 + this.defense;
     }
 }

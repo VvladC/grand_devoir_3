@@ -1,0 +1,168 @@
+package com.github.cataratoru_fara_cap;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+import java.util.Optional;
+
+public class GameWindow extends Application {
+
+    private GameLogic game;
+    private Canvas canvas;
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Game");
+
+        game = new GameLogic("Player");
+        game.initializeGame();
+
+        BorderPane root = new BorderPane();
+        canvas = new Canvas(800, 600);
+        root.setCenter(canvas);
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        scene.setOnKeyPressed(this::handleKeyPress);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        drawGame();
+    }
+
+    private void handleKeyPress(KeyEvent event) {
+        switch (event.getCode()) {
+            case W:
+                game.movePlayer('w');
+                break;
+            case A:
+                game.movePlayer('a');
+                break;
+            case S:
+                game.movePlayer('s');
+                break;
+            case D:
+                game.movePlayer('d');
+                break;
+            default:
+                break;
+        }
+        drawGame();
+        handlePostMoveActions();
+    }
+
+    private void handlePostMoveActions() {
+        // Crafting prompt
+        TextInputDialog craftDialog = new TextInputDialog();
+        craftDialog.setTitle("Crafting");
+        craftDialog.setHeaderText("Do you want to craft something? (Yes/no):");
+        Optional<String> craftResult = craftDialog.showAndWait();
+        craftResult.ifPresent(ans -> game.craft(ans, new Scanner(ans)));
+
+        // Building prompt
+        if (game.isPlayerOnEmptySpace()) {
+            TextInputDialog buildDialog = new TextInputDialog();
+            buildDialog.setTitle("Building");
+            buildDialog.setHeaderText("Do you want to build something? (Yes/no):");
+            Optional<String> buildResult = buildDialog.showAndWait();
+            buildResult.ifPresent(buildAns -> {
+                if (buildAns.equalsIgnoreCase("yes")) {
+                    TextInputDialog buildingNameDialog = new TextInputDialog();
+                    buildingNameDialog.setTitle("Building");
+                    buildingNameDialog.setHeaderText("Enter the name of the building:");
+                    Optional<String> buildingNameResult = buildingNameDialog.showAndWait();
+
+                    TextInputDialog effectDialog = new TextInputDialog();
+                    effectDialog.setTitle("Building");
+                    effectDialog.setHeaderText("Enter the effect (ATTACK, DEFENSE, HEALTH):");
+                    Optional<String> effectResult = effectDialog.showAndWait();
+
+                    if (buildingNameResult.isPresent() && effectResult.isPresent()) {
+                        String buildingName = buildingNameResult.get();
+                        String effectStr = effectResult.get();
+                        Effect effect;
+                        try {
+                            effect = Effect.valueOf(effectStr.toUpperCase());
+                            Building building = new Building(buildingName, effect);
+                            building.applyEffect(game.getPlayer());
+                            game.placeBuilding(building);
+                        } catch (IllegalArgumentException e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Invalid Effect");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Invalid effect.");
+                            alert.showAndWait();
+                        }
+                    }
+                }
+            });
+        }
+
+        // Check game status
+        if (game.isGameWon()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Over");
+            alert.setHeaderText(null);
+            alert.setContentText("YOU WIN");
+            alert.showAndWait();
+            System.exit(0);
+        }
+
+        if (game.isGameOver()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Over");
+            alert.setHeaderText(null);
+            alert.setContentText("GAME OVER");
+            alert.showAndWait();
+            System.exit(0);
+        }
+    }
+
+    private void drawGame() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        char[][] map = game.getMap();
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                switch (map[i][j]) {
+                    case 'P':
+                        gc.fillText("P", j * 20, i * 20);
+                        break;
+                    case 'T':
+                        gc.fillText("T", j * 20, i * 20);
+                        break;
+                    case 'R':
+                        gc.fillText("R", j * 20, i * 20);
+                        break;
+                    case 'G':
+                        gc.fillText("G", j * 20, i * 20);
+                        break;
+                    case 'E':
+                        gc.fillText("E", j * 20, i * 20);
+                        break;
+                    case 'B':
+                        gc.fillText("B", j * 20, i * 20);
+                        break;
+                    case 'U':
+                        gc.fillText("U", j * 20, i * 20);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}

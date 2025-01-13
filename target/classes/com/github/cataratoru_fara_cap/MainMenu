@@ -1,0 +1,59 @@
+package com.github.cataratoru_fara_cap;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class MainMenu extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Game Menu");
+
+        Button resumeButton = new Button("Resume");
+        resumeButton.setOnAction(e -> resumeGame());
+
+        Button newGameButton = new Button("New Game");
+        newGameButton.setOnAction(e -> startNewGame(primaryStage));
+
+        Button optionsButton = new Button("Options");
+        optionsButton.setOnAction(e -> showOptions());
+
+        Button helpButton = new Button("Help");
+        helpButton.setOnAction(e -> showHelp());
+
+        Button exitButton = new Button("Exit");
+        exitButton.setOnAction(e -> primaryStage.close());
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(resumeButton, newGameButton, optionsButton, helpButton, exitButton);
+
+        Scene scene = new Scene(layout, 300, 250);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void resumeGame() {
+        // Implement resume game logic
+    }
+
+    private void startNewGame(Stage primaryStage) {
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.start(primaryStage);
+    }
+
+    private void showOptions() {
+        // Implement options window
+    }
+
+    private void showHelp() {
+        // Implement help window
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}

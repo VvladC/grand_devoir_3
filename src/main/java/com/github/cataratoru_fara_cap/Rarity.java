@@ -4,7 +4,8 @@ public enum Rarity {
     NONE,
     COMMON,
     RARE,
-    EPIC;
+    EPIC,
+    LEGENDARY;
 
     public double getMultiplier() {
         switch (this) {
@@ -14,10 +15,12 @@ public enum Rarity {
                 return 2.0;
             case EPIC:
                 return 5.0;
+            case LEGENDARY:
+                return 10.0;
             default:
                 return 1.0;
-            //Unimplemented rarity is treated as common
-            //Implemented in order to future-proof the code
+            // Unimplemented rarity is treated as common
+            // Implemented in order to future-proof the code
         }
     }
 
