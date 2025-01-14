@@ -4,13 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-import java.util.Optional;
 
 public class GameWindow extends Application {
 
@@ -26,10 +22,12 @@ public class GameWindow extends Application {
 
         BorderPane root = new BorderPane();
         canvas = new Canvas(800, 600);
+        canvas.getStyleClass().add("canvas");
         root.setCenter(canvas);
+        root.getStyleClass().add("root");
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         scene.setOnKeyPressed(this::handleKeyPress);
 
         primaryStage.setScene(scene);
@@ -135,27 +133,50 @@ public class GameWindow extends Application {
             for (int j = 0; j < map[i].length; j++) {
                 switch (map[i][j]) {
                     case 'P':
-                        gc.fillText("P", j * 20, i * 20);
+                        gc.setFill(javafx.scene.paint.Color.BLUE);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
+                        gc.setFill(javafx.scene.paint.Color.WHITE);
+                        gc.fillText("P", j * 20 + 5, i * 20 + 15);
                         break;
                     case 'T':
-                        gc.fillText("T", j * 20, i * 20);
+                        gc.setFill(javafx.scene.paint.Color.GREEN);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
+                        gc.setFill(javafx.scene.paint.Color.WHITE);
+                        gc.fillText("T", j * 20 + 5, i * 20 + 15);
                         break;
                     case 'R':
-                        gc.fillText("R", j * 20, i * 20);
+                        gc.setFill(javafx.scene.paint.Color.GRAY);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
+                        gc.setFill(javafx.scene.paint.Color.WHITE);
+                        gc.fillText("R", j * 20 + 5, i * 20 + 15);
                         break;
                     case 'G':
-                        gc.fillText("G", j * 20, i * 20);
+                        gc.setFill(javafx.scene.paint.Color.YELLOW);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
+                        gc.setFill(javafx.scene.paint.Color.BLACK);
+                        gc.fillText("G", j * 20 + 5, i * 20 + 15);
                         break;
                     case 'E':
-                        gc.fillText("E", j * 20, i * 20);
+                        gc.setFill(javafx.scene.paint.Color.RED);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
+                        gc.setFill(javafx.scene.paint.Color.WHITE);
+                        gc.fillText("E", j * 20 + 5, i * 20 + 15);
                         break;
                     case 'B':
-                        gc.fillText("B", j * 20, i * 20);
+                        gc.setFill(javafx.scene.paint.Color.PURPLE);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
+                        gc.setFill(javafx.scene.paint.Color.WHITE);
+                        gc.fillText("B", j * 20 + 5, i * 20 + 15);
                         break;
                     case 'U':
-                        gc.fillText("U", j * 20, i * 20);
+                        gc.setFill(javafx.scene.paint.Color.CYAN);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
+                        gc.setFill(javafx.scene.paint.Color.BLACK);
+                        gc.fillText("U", j * 20 + 5, i * 20 + 15);
                         break;
                     default:
+                        gc.setFill(javafx.scene.paint.Color.WHITE);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
                         break;
                 }
             }

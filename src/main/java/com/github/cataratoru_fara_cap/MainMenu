@@ -2,7 +2,10 @@ package com.github.cataratoru_fara_cap;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -29,28 +32,65 @@ public class MainMenu extends Application {
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(resumeButton, newGameButton, optionsButton, helpButton, exitButton);
+        layout.getStyleClass().add("vbox");
 
         Scene scene = new Scene(layout, 300, 250);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     private void resumeGame() {
         // Implement resume game logic
+        System.out.println("Resume game clicked");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Resume Game");
+        alert.setHeaderText(null);
+        alert.setContentText("Resume game logic goes here.");
+        alert.showAndWait();
     }
 
     private void startNewGame(Stage primaryStage) {
+        // Start a new game by opening the GameWindow
         GameWindow gameWindow = new GameWindow();
-        gameWindow.start(primaryStage);
+        gameWindow.start(new Stage());
+        primaryStage.close(); // Close the main menu
     }
 
     private void showOptions() {
-        // Implement options window
+        // Open a new tab for options
+        Stage optionsStage = new Stage();
+        optionsStage.setTitle("Options");
+
+        TabPane tabPane = new TabPane();
+        Tab tab1 = new Tab("General");
+        tab1.setContent(new VBox(new Button("Option 1"), new Button("Option 2")));
+        Tab tab2 = new Tab("Advanced");
+        tab2.setContent(new VBox(new Button("Option 3"), new Button("Option 4")));
+
+        tabPane.getTabs().addAll(tab1, tab2);
+
+        Scene scene = new Scene(tabPane, 400, 300);
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        optionsStage.setScene(scene);
+        optionsStage.show();
     }
 
     private void showHelp() {
-        // Implement help window
+        // Open a new tab with instructions
+        Stage helpStage = new Stage();
+        helpStage.setTitle("Help");
+
+        TabPane tabPane = new TabPane();
+        Tab tab = new Tab("Instructions");
+        tab.setContent(new VBox(new Button("The objective is to beat all the enemies including the boss, moving using WASD.")));
+
+        tabPane.getTabs().add(tab);
+
+        Scene scene = new Scene(tabPane, 400, 300);
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        helpStage.setScene(scene);
+        helpStage.show();
     }
 
     public static void main(String[] args) {

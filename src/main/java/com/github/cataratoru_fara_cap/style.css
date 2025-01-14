@@ -1,10 +1,76 @@
 .button {
     -fx-font-size: 14px;
     -fx-padding: 10px;
+    -fx-background-color: #4CAF50; /* Green */
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
 }
 
 .vbox {
     -fx-alignment: center;
     -fx-spacing: 10px;
     -fx-padding: 20px;
+    -fx-background-color: #f0f0f0;
+}
+
+/* Colors for different types of spaces */
+.empty-space {
+    -fx-background-color: #ffffff; /* White */
+}
+
+.player-space {
+    -fx-background-color: #0000ff; /* Blue */
+}
+
+.tree-space {
+    -fx-background-color: #008000; /* Green */
+}
+
+.rock-space {
+    -fx-background-color: #808080; /* Gray */
+}
+
+.grain-space {
+    -fx-background-color: #ffff00; /* Yellow */
+}
+
+.enemy-space {
+    -fx-background-color: #ff0000; /* Red */
+}
+
+.boss-space {
+    -fx-background-color: #800080; /* Purple */
+}
+
+.building-space {
+    -fx-background-color: #00ffff; /* Cyan */
+}
+
+.tab-pane {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}
+
+.tab {
+    -fx-background-color: #e0e0e0;
+    -fx-padding: 10px;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}
+
+.tab:selected {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 1px;
+}
+
+.tab-content {
+    -fx-padding: 10px;
+    -fx-background-color: #ffffff;
 }
